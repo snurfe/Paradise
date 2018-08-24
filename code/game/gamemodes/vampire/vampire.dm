@@ -296,10 +296,13 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			break
 		if(H.stat < DEAD)
 			blood = min(20, H.blood_volume)	// if they have less than 20 blood, give them the remnant else they get 20 blood
-			bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
 			bloodusable += blood / 2
+			if (H.mind)
+				bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
+			else
+				bloodtotal += blood / 4	// Case does not have mind, receive at minimun 5 blood
 		else
-			blood = min(5, H.blood_volume)	// The dead only give 5 blood
+			blood = min(5, H.blood_volume)	// The dead and mindless only give 5 blood
 			bloodtotal += blood
 		if(old_bloodtotal != bloodtotal)
 			to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
